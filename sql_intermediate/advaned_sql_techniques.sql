@@ -63,12 +63,39 @@ select * from employees where project_id = (
 
 -- Temporal Tables
 -- tracks historical data over time
-CREATE TABLE shivani (
+CREATE TABLE temporary_table (
   id INT PRIMARY KEY,
-  name VARCHAR(100),
+  full_name VARCHAR(100),
   position VARCHAR(100),
   salary INT,
   valid_from TIMESTAMP(6)  DEFAULT CURRENT_TIMESTAMP,
   valid_to TIMESTAMP(6) DEFAULT '9999-12-31 23:59:59',
   version INT AUTO_INCREMENT PRIMARY KEY
-)
+);
+
+-- close the old records
+UPDATE temporary_table
+SET valid_to = NOW()
+WHERE employee_id = 1
+  AND valid_to = '9999-12-31 23:59:59';
+
+-- To close the old record
+UPDATE employees
+SET valid_to = NOW()
+WHERE employee_id = 1
+  AND valid_to = '9999-12-31 23:59:59';
+
+-- To insert a new record
+INSERT INTO employees (employee_id, full_name, salary, valid_from, valid_to)
+VALUES (1, 'Alice', 80000, NOW(), '9999-12-31 23:59:59');
+
+-- to filter the records based on employees history
+select * from temporary_table where employee_id = 1;
+
+-- to know the employee's salary on specific date
+select * from temporary_table where employee_id = 1 and '2024-01-01' between valid_from and valid_to;
+
+
+
+
+
