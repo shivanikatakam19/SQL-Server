@@ -60,9 +60,6 @@ select * from employees where project_id = (
    select project_id from projects where project_location = (
       select department_location from departments where department_id = 2) );
 
--- partitioining and windowing
--- 
-
 -- Temporal Tables
 -- tracks historical data over time
 CREATE TABLE temporary_table (
