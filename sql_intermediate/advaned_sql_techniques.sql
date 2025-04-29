@@ -14,6 +14,7 @@ row_number() over (order by salary desc) as saalry_row_number
 from employees;
 
 -- Pivoting
+-- the below table gives information of male and female employees in each project
 with pivoted_table as(select project_id, 
 sum(CASE WHEN project_id = 2 OR project_id = 3 OR project_id is null THEN gender="Female" ELSE 0 END) as female,
 sum(CASE WHEN project_id = 2 OR project_id = 3 OR project_id is null THEN gender="Male" ELSE 0 END) as male
