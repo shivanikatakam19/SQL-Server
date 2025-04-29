@@ -80,14 +80,8 @@ SET valid_to = NOW()
 WHERE employee_id = 1
   AND valid_to = '9999-12-31 23:59:59';
 
--- To close the old record
-UPDATE employees
-SET valid_to = NOW()
-WHERE employee_id = 1
-  AND valid_to = '9999-12-31 23:59:59';
-
 -- To insert a new record
-INSERT INTO employees (employee_id, full_name, salary, valid_from, valid_to)
+INSERT INTO temporary_table (employee_id, full_name, salary, valid_from, valid_to)
 VALUES (1, 'Alice', 80000, NOW(), '9999-12-31 23:59:59');
 
 -- to filter the records based on employees history
