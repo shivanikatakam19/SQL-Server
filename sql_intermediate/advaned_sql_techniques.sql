@@ -24,6 +24,7 @@ group by project_id)
 select * from pivoted_table;
 
 -- analytic functions
+-- here I have used for salary, in real life it will be useful to represent sales data according to year or months
 SELECT 
     employee_id, 
     first_name,

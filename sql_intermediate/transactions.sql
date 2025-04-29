@@ -48,3 +48,7 @@ DELIMITER ;
 -- to call the procedure
 call transaction_savepoint(3, 4, 1000);
 select * from employees;
+
+select * from employees limit 3,5; -- skip first 10 rows fetches next 5 rows
+select * from employees limit 5;
+
