@@ -75,18 +75,18 @@ CREATE TABLE temporary_table (
 -- close the old records
 UPDATE temporary_table
 SET valid_to = NOW()
-WHERE employee_id = 1
+WHERE id = 1
   AND valid_to = '9999-12-31 23:59:59';
 
 -- To insert a new record
-INSERT INTO temporary_table (employee_id, full_name, salary, valid_from, valid_to)
+INSERT INTO temporary_table (id, full_name, salary, valid_from, valid_to)
 VALUES (1, 'Alice', 80000, NOW(), '9999-12-31 23:59:59');
 
 -- to filter the records based on employees history
-select * from temporary_table where employee_id = 1;
+select * from temporary_table where id = 1;
 
 -- to know the employee's salary on specific date
-select * from temporary_table where employee_id = 1 and '2024-01-01' between valid_from and valid_to;
+select * from temporary_table where id = 1 and '2024-01-01' between valid_from and valid_to;
 
 
 
