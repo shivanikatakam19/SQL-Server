@@ -59,3 +59,4 @@ update employees set salary=20000 where employee_id=1;
 -- if you want to avoid this use level serializable as it will block tranaction 2 until transaction 1 is completed.
 set transaction isolation level serializable;
 -- if you include the above line you cannot update the values until a transaction is completed
+-- after the transaction is completed it will execute the statement
