@@ -63,13 +63,13 @@ select * from employees where project_id = (
 -- Temporal Tables
 -- tracks historical data over time
 CREATE TABLE temporary_table (
-  id INT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   full_name VARCHAR(100),
   position VARCHAR(100),
   salary INT,
-  valid_from TIMESTAMP(6)  DEFAULT CURRENT_TIMESTAMP,
-  valid_to TIMESTAMP(6) DEFAULT '9999-12-31 23:59:59',
-  version INT AUTO_INCREMENT PRIMARY KEY
+  valid_from DATETIME DEFAULT CURRENT_TIMESTAMP,
+  valid_to DATETIME DEFAULT '9999-12-31 23:59:59',
+  version INT
 );
 
 -- close the old records
