@@ -15,13 +15,16 @@ from employees;
 
 -- Pivoting
 -- the below table gives information of male and female employees in each project
-with pivoted_table as(select project_id, 
-sum(CASE WHEN project_id = 2 OR project_id = 3 OR project_id is null THEN gender="Female" ELSE 0 END) as female,
-sum(CASE WHEN project_id = 2 OR project_id = 3 OR project_id is null THEN gender="Male" ELSE 0 END) as male
-from employees 
-group by project_id)
+with pivoted_table as (
+  select 
+    project_id,
+    sum(case when gender = 'Female' then 1 else 0 end) as female,
+    sum(case when gender = 'Male' then 1 else 0 end) as male
+  from employees
+  group by project_id
+)
 
-select * from pivoted_table;
+select * FROM pivoted_table;
 
 -- analytic functions
 -- here I have used for salary, in real life it will be useful to represent sales data according to year or months
@@ -59,34 +62,6 @@ update departments set department_location = "Banglore" where department_id =2;
 select * from employees where project_id = ( 
    select project_id from projects where project_location = (
       select department_location from departments where department_id = 2) );
-
--- Temporal Tables
--- tracks historical data over time
-CREATE TABLE temporary_table (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  full_name VARCHAR(100),
-  position VARCHAR(100),
-  salary INT,
-  valid_from DATETIME DEFAULT CURRENT_TIMESTAMP,
-  valid_to DATETIME DEFAULT '9999-12-31 23:59:59',
-  version INT
-);
-
--- close the old records
-UPDATE temporary_table
-SET valid_to = NOW()
-WHERE id = 1
-  AND valid_to = '9999-12-31 23:59:59';
-
--- To insert a new record
-INSERT INTO temporary_table (id, full_name, salary, valid_from, valid_to)
-VALUES (1, 'Alice', 80000, NOW(), '9999-12-31 23:59:59');
-
--- to filter the records based on employees history
-select * from temporary_table where id = 1;
-
--- to know the employee's salary on specific date
-select * from temporary_table where id = 1 and '2024-01-01' between valid_from and valid_to;
 
 
 
